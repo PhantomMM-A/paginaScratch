@@ -1,0 +1,15 @@
+# Entorno virtual
+venv/
+__pycache__/
+*.pyc
+
+# Variables de entorno (NUNCA subir a Git)
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

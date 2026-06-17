@@ -4,17 +4,39 @@ from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey, Date, Boolean
+from sqlalchemy.pool import NullPool
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
 from typing import List, Optional
 from datetime import date
 
-# 1. Configuración de la Base de Datos
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://usuario:password@localhost/dbname")
+# Cargar variables de entorno desde .env para desarrollo local
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # En producción (Vercel) no necesitamos dotenv
+
+# 1. Configuración de la Base de Datos (Neon PostgreSQL Serverless)
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError(
+        "⚠️ La variable de entorno DATABASE_URL no está configurada. "
+        "Configurala en Vercel (Settings → Environment Variables) o en un archivo .env local."
+    )
 
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-engine = create_engine(DATABASE_URL)
+# NullPool es ideal para serverless: no mantiene conexiones persistentes.
+# Neon ya maneja el pooling con PgBouncer del lado del servidor.
+engine = create_engine(
+    DATABASE_URL,
+    poolclass=NullPool,
+    connect_args={
+        "options": "-c timezone=America/Argentina/Buenos_Aires"
+    }
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
