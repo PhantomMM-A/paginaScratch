@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey, Date
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
+from typing import List, Optional
 from datetime import date
 
 # 1. Configuración de la Base de Datos
@@ -65,17 +66,45 @@ class ProyectoResponse(BaseModel):
     id: int
     grado_id: int
     titulo: str
-    descripcion: str | None = None
-    pdf_url: str | None = None
-    imagen_url: str | None = None
-    autor: str | None = None
-    fecha: date | None = None
+    descripcion: Optional[str] = None
+    pdf_url: Optional[str] = None
+    imagen_url: Optional[str] = None
+    autor: Optional[str] = None
+    fecha: Optional[date] = None
+    dificultad: Optional[str] = "Principiante"
+
+    class Config:
+        from_attributes = True
+
+class GaleriaResponse(BaseModel):
+    id: int
+    grado_id: int
+    imagen_url: str
+    descripcion: Optional[str] = None
+    fecha: Optional[date] = None
+
+    class Config:
+        from_attributes = True
+
+class PlanificacionResponse(BaseModel):
+    id: int
+    grado_id: int
+    titulo: str
+    pdf_url: str
+    numero_clase: Optional[int] = None
+    fecha: Optional[date] = None
 
     class Config:
         from_attributes = True
 
 # 4. Inicializar FastAPI
 app = FastAPI(title="Codifica tu Mundo API", docs_url="/api/docs", openapi_url="/api/openapi.json")
+
+# Crear tablas automáticamente si la conexión a la base de datos es exitosa
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"Advertencia: No se pudieron crear las tablas de base de datos automáticamente: {e}")
 
 # Habilitar CORS para que tu frontend se pueda conectar sin bloqueos de seguridad
 app.add_middleware(
@@ -91,20 +120,23 @@ app.add_middleware(
 def status():
     return {"status": "online", "proyecto": "Codifica tu Mundo - CRECE"}
 
-@app.get("/api/proyectos", response_model=list[ProyectoResponse])
-def listar_proyectos(grado_id: int | None = None, db: Session = Depends(get_db)):
+@app.get("/api/proyectos", response_model=List[ProyectoResponse])
+def listar_proyectos(grado_id: Optional[int] = None, db: Session = Depends(get_db)):
     query = db.query(Proyecto)
-    if grado_id: query = query.filter(Proyecto.grado_id == grado_id)
+    if grado_id: 
+        query = query.filter(Proyecto.grado_id == grado_id)
     return query.all()
 
-@app.get("/api/galeria", response_model=list[GaleriaResponse])
-def listar_galeria(grado_id: int | None = None, db: Session = Depends(get_db)):
+@app.get("/api/galeria", response_model=List[GaleriaResponse])
+def listar_galeria(grado_id: Optional[int] = None, db: Session = Depends(get_db)):
     query = db.query(Galeria)
-    if grado_id: query = query.filter(Galeria.grado_id == grado_id)
+    if grado_id: 
+        query = query.filter(Galeria.grado_id == grado_id)
     return query.all()
 
-@app.get("/api/planificaciones", response_model=list[PlanificacionResponse])
-def listar_planificaciones(grado_id: int | None = None, db: Session = Depends(get_db)):
+@app.get("/api/planificaciones", response_model=List[PlanificacionResponse])
+def listar_planificaciones(grado_id: Optional[int] = None, db: Session = Depends(get_db)):
     query = db.query(Planificacion)
-    if grado_id: query = query.filter(Planificacion.grado_id == grado_id)
+    if grado_id: 
+        query = query.filter(Planificacion.grado_id == grado_id)
     return query.all()
