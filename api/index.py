@@ -3,15 +3,12 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey, Date
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import declarative_base, sessionmaker, Session
 from datetime import date
 
 # 1. Configuración de la Base de Datos
-# Lee la variable de entorno de Vercel en producción, si no usa una local por defecto
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://usuario:password@localhost/dbname")
 
-# Corrección para compatibilidad de esquemas de conexión en Vercel/Render/Supabase
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
@@ -19,7 +16,6 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# 2. Dependencia de conexión
 def get_db():
     db = SessionLocal()
     try:
@@ -27,7 +23,7 @@ def get_db():
     finally:
         db.close()
 
-# 3. Modelos de Base de Datos (SQLAlchemy)
+# 2. Modelos de Base de Datos (SQLAlchemy)
 class Grado(Base):
     __tablename__ = "grados"
     id = Column(Integer, primary_key=True, index=True)
@@ -47,7 +43,24 @@ class Proyecto(Base):
     fecha = Column(Date)
     dificultad = Column(String(50), default="Principiante")
 
-# 4. Esquemas de validación (Pydantic)
+class Galeria(Base):
+    __tablename__ = "galeria"
+    id = Column(Integer, primary_key=True, index=True)
+    grado_id = Column(Integer, ForeignKey("grados.id", ondelete="CASCADE"))
+    imagen_url = Column(String(500), nullable=False)
+    descripcion = Column(String(300))
+    fecha = Column(Date)
+
+class Planificacion(Base):
+    __tablename__ = "planificaciones"
+    id = Column(Integer, primary_key=True, index=True)
+    grado_id = Column(Integer, ForeignKey("grados.id", ondelete="CASCADE"))
+    titulo = Column(String(200), nullable=False)
+    pdf_url = Column(String(500), nullable=False)
+    numero_clase = Column(Integer)
+    fecha = Column(Date)
+
+# 3. Esquemas de Pydantic para las respuestas de la API
 class ProyectoResponse(BaseModel):
     id: int
     grado_id: int
@@ -57,19 +70,12 @@ class ProyectoResponse(BaseModel):
     imagen_url: str | None = None
     autor: str | None = None
     fecha: date | None = None
-    dificultad: str | None = "Principiante"
 
     class Config:
         from_attributes = True
 
-# 5. Inicializar FastAPI
-app = FastAPI(title="Feria de Ciencias API", docs_url="/api/docs", openapi_url="/api/openapi.json")
-
-# Crear tablas automáticamente en la base de datos si no existen
-try:
-    Base.metadata.create_all(bind=engine)
-except Exception as e:
-    print(f"Advertencia: No se pudieron crear las tablas de base de datos automáticamente: {e}")
+# 4. Inicializar FastAPI
+app = FastAPI(title="Codifica tu Mundo API", docs_url="/api/docs", openapi_url="/api/openapi.json")
 
 # Habilitar CORS para que tu frontend se pueda conectar sin bloqueos de seguridad
 app.add_middleware(
@@ -80,21 +86,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 6. Endpoints
+# 5. Endpoints (Rutas para el Frontend)
 @app.get("/api/status")
 def status():
-    return {"status": "online", "proyecto": "Backend Feria Scratch"}
+    return {"status": "online", "proyecto": "Codifica tu Mundo - CRECE"}
 
 @app.get("/api/proyectos", response_model=list[ProyectoResponse])
 def listar_proyectos(grado_id: int | None = None, db: Session = Depends(get_db)):
     query = db.query(Proyecto)
-    if grado_id:
-        query = query.filter(Proyecto.grado_id == grado_id)
+    if grado_id: query = query.filter(Proyecto.grado_id == grado_id)
     return query.all()
 
-@app.get("/api/proyectos/{proyecto_id}", response_model=ProyectoResponse)
-def obtener_proyecto(proyecto_id: int, db: Session = Depends(get_db)):
-    proyecto = db.query(Proyecto).filter(Proyecto.id == proyecto_id).first()
-    if not proyecto:
-        raise HTTPException(status_code=404, detail="Proyecto no encontrado")
-    return proyecto
+@app.get("/api/galeria", response_model=list[GaleriaResponse])
+def listar_galeria(grado_id: int | None = None, db: Session = Depends(get_db)):
+    query = db.query(Galeria)
+    if grado_id: query = query.filter(Galeria.grado_id == grado_id)
+    return query.all()
+
+@app.get("/api/planificaciones", response_model=list[PlanificacionResponse])
+def listar_planificaciones(grado_id: int | None = None, db: Session = Depends(get_db)):
+    query = db.query(Planificacion)
+    if grado_id: query = query.filter(Planificacion.grado_id == grado_id)
+    return query.all()
