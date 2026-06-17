@@ -303,6 +303,8 @@
             }
         ];
 
+        let activeProjectsList = [...PROJECTS_DATA]; // Empezar con los estáticos como fallback
+
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('projects-grid');
             const emptyState = document.getElementById('empty-state');
@@ -313,7 +315,7 @@
             let searchQuery = '';
 
             const renderProjects = () => {
-                const filtered = PROJECTS_DATA.filter(project => {
+                const filtered = activeProjectsList.filter(project => {
                     const matchesSearch = project.nombre.toLowerCase().includes(searchQuery.toLowerCase()) || 
                                           project.descripcion.toLowerCase().includes(searchQuery.toLowerCase());
                     const matchesFilter = currentFilter === 'all' || project.grado === currentFilter;
@@ -348,11 +350,11 @@
                                     <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
                                         <div class="flex items-center gap-2">
                                             <div class="w-7 h-7 rounded-full bg-crece-bordo/10 text-crece-bordo flex items-center justify-center text-[10px] font-bold">
-                                                ${p.autor.charAt(0)}
+                                                ${p.autor ? p.autor.charAt(0) : 'A'}
                                             </div>
                                             <div>
-                                                <span class="block text-[10px] font-semibold text-slate-700 leading-none">${p.autor}</span>
-                                                <span class="text-[9px] text-slate-400 font-mono">${p.fecha}</span>
+                                                <span class="block text-[10px] font-semibold text-slate-700 leading-none">${p.autor || 'Anónimo'}</span>
+                                                <span class="text-[9px] text-slate-400 font-mono">${p.fecha || ''}</span>
                                             </div>
                                         </div>
                                         <a href="${p.pdf}" class="inline-flex items-center gap-1.5 text-crece-bordo hover:text-crece-bordo-light text-xs font-bold transition-colors">
@@ -368,8 +370,42 @@
                 }
             };
 
-            // Init Render
-            renderProjects();
+            // Intentar cargar proyectos desde el backend dinámicamente
+            async function cargarProyectosBackend() {
+                try {
+                    const response = await fetch('/api/proyectos');
+                    if (response.ok) {
+                        const backendData = await response.json();
+                        if (backendData && backendData.length > 0) {
+                            // Mapear los datos de la base de datos a la estructura del frontend
+                            activeProjectsList = backendData.map(bp => ({
+                                nombre: bp.titulo,
+                                grado: String(bp.grado_id),
+                                dificultad: bp.dificultad || 'Principiante',
+                                descripcion: bp.descripcion || 'Sin descripción',
+                                fecha: bp.fecha || '',
+                                autor: bp.autor || 'Anónimo',
+                                imagen: bp.imagen_url || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=80',
+                                pdf: bp.pdf_url || '#'
+                            }));
+                            console.log("Datos cargados exitosamente desde la API:", activeProjectsList);
+                            renderProjects();
+                        } else {
+                            console.log("API retornó 0 proyectos, usando datos de respaldo (fallback).");
+                            renderProjects();
+                        }
+                    } else {
+                        console.warn("La API no respondió correctamente, usando datos de respaldo (fallback).");
+                        renderProjects();
+                    }
+                } catch (error) {
+                    console.warn("No se pudo conectar con el backend (API offline). Usando datos de respaldo:", error);
+                    renderProjects();
+                }
+            }
+
+            // Iniciar carga
+            cargarProyectosBackend();
 
             // Search Event
             searchInput.addEventListener('input', (e) => {

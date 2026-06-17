@@ -45,6 +45,7 @@ class Proyecto(Base):
     imagen_url = Column(String(500))
     autor = Column(String(100))
     fecha = Column(Date)
+    dificultad = Column(String(50), default="Principiante")
 
 # 4. Esquemas de validación (Pydantic)
 class ProyectoResponse(BaseModel):
@@ -56,12 +57,19 @@ class ProyectoResponse(BaseModel):
     imagen_url: str | None = None
     autor: str | None = None
     fecha: date | None = None
+    dificultad: str | None = "Principiante"
 
     class Config:
         from_attributes = True
 
 # 5. Inicializar FastAPI
 app = FastAPI(title="Feria de Ciencias API", docs_url="/api/docs", openapi_url="/api/openapi.json")
+
+# Crear tablas automáticamente en la base de datos si no existen
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"Advertencia: No se pudieron crear las tablas de base de datos automáticamente: {e}")
 
 # Habilitar CORS para que tu frontend se pueda conectar sin bloqueos de seguridad
 app.add_middleware(
