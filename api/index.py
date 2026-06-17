@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey, Date
@@ -140,3 +141,29 @@ def listar_planificaciones(grado_id: Optional[int] = None, db: Session = Depends
     if grado_id: 
         query = query.filter(Planificacion.grado_id == grado_id)
     return query.all()
+
+# 6. Servir Frontend Estático (HTML, CSS, JS)
+@app.get("/")
+def read_index():
+    return FileResponse("index.html")
+
+@app.get("/{filename}.html")
+def read_html(filename: str):
+    filepath = f"{filename}.html"
+    if os.path.exists(filepath):
+        return FileResponse(filepath)
+    raise HTTPException(status_code=404, detail="Página no encontrada")
+
+@app.get("/css/{filename}")
+def read_css(filename: str):
+    filepath = os.path.join("css", filename)
+    if os.path.exists(filepath):
+        return FileResponse(filepath)
+    raise HTTPException(status_code=404, detail="Archivo CSS no encontrado")
+
+@app.get("/js/{filename}")
+def read_js(filename: str):
+    filepath = os.path.join("js", filename)
+    if os.path.exists(filepath):
+        return FileResponse(filepath)
+    raise HTTPException(status_code=404, detail="Archivo JS no encontrado")
