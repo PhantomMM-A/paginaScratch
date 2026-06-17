@@ -43,16 +43,14 @@
     <header id="main-nav" class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-white/70 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-crece-bordo to-crece-rojo flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                    <i class="ri-code-s-slash-line text-white text-xl font-bold"></i>
-                </div>
+                <img src="css/Logo.png" alt="Logo CRECE" class="w-10 h-10 rounded-xl object-cover shadow-md group-hover:scale-105 transition-transform duration-300">
                 <div>
                     <span class="font-['Outfit'] font-black text-2xl tracking-tight text-crece-bordo">CRECE</span>
                     <span class="block text-[9px] uppercase tracking-widest text-crece-azulUniforme font-bold -mt-1">Dr. J. G. R. de Francia</span>
                 </div>
             </a>
             
-            <nav class="hidden lg:flex items-center gap-8">
+            <nav class="hidden lg:flex items-center gap-6">
                 <a href="index.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Inicio</a>
                 <a href="institucion.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Institución</a>
                 <a href="proyecto.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Codifica tu Mundo</a>
@@ -60,6 +58,7 @@
                 <a href="galeria.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Galería</a>
                 <a href="planificaciones.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Planificaciones</a>
                 <a href="asistencia.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Asistencia</a>
+                <a href="documentacion.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Documentación</a>
                 <a href="contacto.html" class="nav-link active text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Contacto</a>
             </nav>
             
@@ -109,6 +108,9 @@
             <a href="asistencia.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
                 <i class="ri-calendar-check-line text-lg"></i> Asistencia
             </a>
+            <a href="documentacion.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-file-text-line text-lg"></i> Documentación
+            </a>
             <a href="contacto.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
                 <i class="ri-contacts-line text-lg"></i> Contacto
             </a>
@@ -153,7 +155,7 @@
                                 </span>
                                 <div class="text-xs">
                                     <span class="block font-bold text-slate-800">Dirección</span>
-                                    <p class="mt-0.5">Avda. Rogelio R. Benítez, Cdad. del Este, Paraguay</p>
+                                    <p class="mt-0.5">Calle Dra. Guillermina Núñez de Báez c/ Av. Gral. Bernardino Caballero., Ciudad del Este, Paraguay, 100151</p>
                                 </div>
                             </div>
                             
@@ -175,7 +177,7 @@
                                 </span>
                                 <div class="text-xs">
                                     <span class="block font-bold text-slate-800">Correo Electrónico</span>
-                                    <p class="mt-0.5">contacto@crece.edu.py</p>
+                                    <p class="mt-0.5"><a href="mailto:cecrecepy@gmail.com" class="hover:text-crece-bordo transition-colors">cecrecepy@gmail.com</a></p>
                                 </div>
                             </div>
                         </div>
@@ -239,9 +241,7 @@
             <!-- Col 1 -->
             <div class="md:col-span-5 space-y-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-crece-bordo flex items-center justify-center">
-                        <i class="ri-code-s-slash-line text-white font-bold"></i>
-                    </div>
+                    <img src="css/Logo.png" alt="Logo CRECE" class="w-9 h-9 rounded-xl object-cover">
                     <span class="font-['Outfit'] font-black text-xl text-white tracking-tight">CRECE</span>
                 </div>
                 <p class="text-sm text-slate-400 max-w-sm">
@@ -260,8 +260,8 @@
                 <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Proyecto</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="proyecto.html" class="hover:text-white transition-colors">Fundamentación</a></li>
-                    <li><a href="proyecto.html#objetivos" class="hover:text-white transition-colors">Objetivos</a></li>
-                    <li><a href="proyecto.html#metodologia" class="hover:text-white transition-colors">Metodología</a></li>
+                    <li><a href="proyecto.html#obj" class="hover:text-white transition-colors">Objetivos</a></li>
+                    <li><a href="proyecto.html#met" class="hover:text-white transition-colors">Metodología</a></li>
                     <li><a href="proyectos-scratch.html" class="hover:text-white transition-colors">Proyectos Scratch</a></li>
                 </ul>
             </div>
@@ -279,7 +279,10 @@
         </div>
         
         <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
-            <p>© 2026 Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia. Creado por 3° BTI.</p>
+            <div class="space-y-1 text-center sm:text-left">
+                <p>© 2026 Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia. Creado por 3° BTI.</p>
+                <p class="text-[10px] text-slate-500">Desarrolladores: Maximo Alejandro Miranda, Nahum Agustin Velazquez Gonzalez y Jean Carlos Vera Morel.</p>
+            </div>
             <div class="flex items-center gap-6">
                 <span>Codifica tu Mundo &copy; 2026</span>
             </div>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Clase 2: Repetición y Bloques Continuos - CRECE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crece: {
+                            bordo: '#700816',
+                            rojo: '#e51d24',
+                            azulPatrio: '#363092',
+                            azulUniforme: '#1b6391',
+                            gris: '#f9f9f9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+                font-size: 12px;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 sm:p-8">
+
+    <!-- Print Header Controls -->
+    <div class="max-w-4xl mx-auto mb-6 no-print flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+        <a href="../planificaciones.html" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-crece-azulUniforme transition-colors">
+            <i class="ri-arrow-left-line"></i>
+            <span>Volver a Planificaciones</span>
+        </a>
+        <button onclick="window.print()" class="inline-flex items-center gap-2 px-4 py-2 bg-crece-azulUniforme text-white text-xs font-bold rounded-lg shadow-md hover:bg-opacity-95 transition-all">
+            <i class="ri-printer-line"></i>
+            <span>Guardar / Imprimir PDF</span>
+        </button>
+    </div>
+
+    <!-- Main PDF Content Container -->
+    <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-2xl shadow-xl border border-slate-100">
+        
+        <!-- School Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-6 pb-6 border-b-2 border-slate-100 mb-8">
+            <div class="flex items-center gap-4 text-center sm:text-left">
+                <img src="../css/Logo.png" alt="Logo CRECE" class="w-16 h-16 object-cover rounded-xl shadow-sm">
+                <div>
+                    <h1 class="font-['Outfit'] font-extrabold text-xl text-crece-bordo">CRECE</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Dr. José Gaspar Rodríguez de Francia</p>
+                    <p class="text-xs font-medium text-crece-azulUniforme mt-0.5">3° BTI - Bachillerato Técnico en Informática</p>
+                </div>
+            </div>
+            <div class="text-center sm:text-right text-xs text-slate-400 font-mono">
+                <span class="block">PROYECTO INTEGRADOR</span>
+                <span class="block text-slate-600 font-bold mt-0.5">Codifica tu Mundo</span>
+                <span class="block mt-1">Año Escolar 2026</span>
+            </div>
+        </div>
+
+        <!-- Document Identity -->
+        <div class="mb-8">
+            <span class="px-3 py-1 rounded bg-crece-azulUniforme/10 text-crece-azulUniforme text-[10px] font-bold uppercase tracking-wider font-mono">Ficha de Detalle Didáctico - Sesión 2</span>
+            <h2 class="font-['Outfit'] font-black text-2xl sm:text-3xl text-slate-900 mt-2">Repetición y Bloques Continuos</h2>
+            <p class="text-slate-500 text-sm mt-1">Soporte didáctico enfocado en estructuras cíclicas iterativas y la reducción lógica de bloques redundantes.</p>
+        </div>
+
+        <!-- Meta Table -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-slate-50 rounded-xl mb-8 text-xs">
+            <div>
+                <span class="block text-slate-400 font-medium">Grado Destinatario</span>
+                <span class="font-bold text-slate-800">5° Grado</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Fecha</span>
+                <span class="font-bold text-slate-800">13 de Abril, 2026</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Tema Técnico</span>
+                <span class="font-bold text-slate-800">Bucles (Loops)</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Desarrolladores</span>
+                <span class="font-bold text-slate-800 text-[10px] leading-tight block">Maximo Miranda, Nahum Velazquez, Jean Vera</span>
+            </div>
+        </div>
+
+        <!-- Detail Content -->
+        <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+            <!-- Enfoque Pedagogico -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">1. Enfoque Metodológico y Pedagógico</h3>
+                <p class="text-xs text-slate-600 mb-2">
+                    Se utiliza el <strong>Aprendizaje Basado en Desafíos Lógicos</strong>. Se expone a los niños a un problema físico y computacional real: la fatiga y complejidad de escribir código redundante. Al forzarlos a mover al gato de lado a lado copiando decenas de bloques de movimiento, descubren por sí mismos la imperiosa necesidad de abstraer y optimizar su código a través de los bucles.
+                </p>
+            </div>
+
+            <!-- Bloques Clave -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">2. Análisis de Bloques de Código Clave</h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-1 bg-orange-500/15 text-orange-700 rounded text-xs font-mono font-bold">Control</span>
+                        <div>
+                            <span class="font-semibold text-slate-800 text-xs block">Por siempre [bloques]</span>
+                            <p class="text-[11px] text-slate-500">Un bucle infinito. Repite el código contenido dentro de su boca de forma indefinida mientras el programa esté activo. Se utiliza para comportamientos globales como caminar, música de fondo o gravedad en los juegos.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="px-2 py-1 bg-orange-500/15 text-orange-700 rounded text-xs font-mono font-bold">Control</span>
+                        <div>
+                            <span class="font-semibold text-slate-800 text-xs block">Repetir (10) [bloques]</span>
+                            <p class="text-[11px] text-slate-500">Un bucle finito. Ejecuta las instrucciones internas exactamente el número de veces indicado en el parámetro numérico y luego continúa con los bloques inferiores. Ideal para saltos o animaciones específicas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Debugging -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">3. Guía de Resolución de Errores Comunes (Debugging)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                                <th class="p-2">Problema Común</th>
+                                <th class="p-2">Causa Probable</th>
+                                <th class="p-2">Estrategia de Guía Didáctica (Tutor BTI)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-2 font-medium text-slate-800">El gato camina de cabeza (pies arriba) al chocar contra el borde.</td>
+                                <td class="p-2 text-slate-500">El estilo de rotación por defecto está configurado a 360 grados.</td>
+                                <td class="p-2 text-slate-600">Guiar al niño al panel de información del objeto en "Dirección" y hacer clic en el ícono de rotación izquierda-derecha (o acoplar el bloque correspondiente al inicio).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-medium text-slate-800">Los bloques acoplados debajo del bucle "por siempre" nunca se activan.</td>
+                                <td class="p-2 text-slate-500">Los bucles infinitos no tienen salida lógica hacia abajo.</td>
+                                <td class="p-2 text-slate-600">Explicar la anatomía física del bloque "por siempre" (no tiene ranura de encastre inferior). Indicar que los eventos que deben ocurrir después deben ir en un hilo de eventos paralelo.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Actividades de Extension -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">4. Actividades de Extensión o Refuerzo</h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li><strong>Para estudiantes avanzados:</strong> Introducir un bloque de <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-purple-600">siguiente disfraz</code> dentro del bucle para dar la ilusión visual de que el gato trota mientras camina.</li>
+                    <li><strong>Para estudiantes rezagados:</strong> Dibujar en una hoja física el camino que hace el código paso a paso para que comprendan de forma visual el retorno al primer bloque cuando termina un ciclo.</li>
+                </ul>
+            </div>
+
+            <!-- Preguntas Didacticas -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">5. Preguntas de Reflexión Didáctica (Cierre)</h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li>¿Qué pasaría si pusiéramos un bloque de salto infinito dentro de un bucle de repetir 10 veces? ¿Cuál se ejecuta primero?</li>
+                    <li>¿Por qué es importante configurar la rotación antes de ordenar que un objeto rebote?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer signatures -->
+        <div class="mt-12 pt-8 border-t border-slate-100 grid grid-cols-3 gap-8 text-center text-[10px] text-slate-400">
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Tutoría 3° BTI</span>
+            </div>
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Coordinación Pedagógica</span>
+            </div>
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Dirección CRECE</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guión de Clase 5: Coordenadas y Movimiento Preciso - CRECE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crece: {
+                            bordo: '#700816',
+                            rojo: '#e51d24',
+                            azulPatrio: '#363092',
+                            azulUniforme: '#1b6391',
+                            gris: '#f9f9f9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+                font-size: 12px;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 sm:p-8">
+
+    <!-- Print Header Controls -->
+    <div class="max-w-4xl mx-auto mb-6 no-print flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+        <a href="../planificaciones.html" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-crece-bordo transition-colors">
+            <i class="ri-arrow-left-line"></i>
+            <span>Volver a Planificaciones</span>
+        </a>
+        <button onclick="window.print()" class="inline-flex items-center gap-2 px-4 py-2 bg-crece-bordo text-white text-xs font-bold rounded-lg shadow-md hover:bg-crece-bordo-light transition-all">
+            <i class="ri-printer-line"></i>
+            <span>Guardar / Imprimir PDF</span>
+        </button>
+    </div>
+
+    <!-- Main PDF Content Container -->
+    <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-2xl shadow-xl border border-slate-100">
+        
+        <!-- School Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-6 pb-6 border-b-2 border-slate-100 mb-8">
+            <div class="flex items-center gap-4 text-center sm:text-left">
+                <img src="../css/Logo.png" alt="Logo CRECE" class="w-16 h-16 object-cover rounded-xl shadow-sm">
+                <div>
+                    <h1 class="font-['Outfit'] font-extrabold text-xl text-crece-bordo">CRECE</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Dr. José Gaspar Rodríguez de Francia</p>
+                    <p class="text-xs font-medium text-crece-azulUniforme mt-0.5">3° BTI - Bachillerato Técnico en Informática</p>
+                </div>
+            </div>
+            <div class="text-center sm:text-right text-xs text-slate-400 font-mono">
+                <span class="block">PROYECTO INTEGRADOR</span>
+                <span class="block text-slate-600 font-bold mt-0.5">Codifica tu Mundo</span>
+                <span class="block mt-1">Año Escolar 2026</span>
+            </div>
+        </div>
+
+        <!-- Document Identity -->
+        <div class="mb-8">
+            <span class="px-3 py-1 rounded bg-crece-bordo/10 text-crece-bordo text-[10px] font-bold uppercase tracking-wider">Planificación Docente - Guión de Clase 5</span>
+            <h2 class="font-['Outfit'] font-black text-2xl sm:text-3xl text-slate-900 mt-2">Coordenadas y Movimiento Preciso</h2>
+            <p class="text-slate-500 text-sm mt-1">Comprensión espacial del plano cartesiano 2D en Scratch y control de posiciones fijas.</p>
+        </div>
+
+        <!-- Meta Table -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-slate-50 rounded-xl mb-8 text-xs">
+            <div>
+                <span class="block text-slate-400 font-medium">Grado Destinatario</span>
+                <span class="font-bold text-slate-800">6° Grado</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Fecha</span>
+                <span class="font-bold text-slate-800">04 de Mayo, 2026</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Duración</span>
+                <span class="font-bold text-slate-800">90 Minutos</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Desarrolladores</span>
+                <span class="font-bold text-slate-800 text-[10px] leading-tight block">Maximo Miranda, Nahum Velazquez, Jean Vera</span>
+            </div>
+        </div>
+
+        <!-- Class Content -->
+        <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+            <!-- Objetivos -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">1. Objetivos del Aprendizaje</h3>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Comprender el plano bidimensional X-Y y su equivalencia en el escenario digital de Scratch.</li>
+                    <li>Utilizar de forma precisa los bloques de posicionamiento absoluto <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-blue-600">ir a x: y:</code> e interpolado <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-blue-600">deslizar en X seg a x: y:</code>.</li>
+                    <li>Comprender la necesidad de inicializar variables de posición y estado al arrancar una aplicación computacional.</li>
+                </ul>
+            </div>
+
+            <!-- Materiales -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">2. Materiales y Recursos</h3>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Computadoras de laboratorio de informática.</li>
+                    <li>Proyector y pizarra acrílica con una cuadrícula cartesiana dibujada.</li>
+                    <li>Guía Didáctica Nº 5 "El Mapa del Tesoro Geométrico".</li>
+                </ul>
+            </div>
+
+            <!-- Fases de la Clase -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">3. Secuencia Didáctica (Fases de la Clase)</h3>
+                <div class="space-y-4">
+                    <div class="pl-4 border-l-2 border-crece-bordo">
+                        <h4 class="font-bold text-slate-900 text-xs">Inicio (15 Minutos) - Conceptualización Espacial</h4>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Dinámica "Batalla Naval Didáctica": En la pizarra dividida en un plano X/Y, un estudiante intenta adivinar dónde está escondido un objeto dando coordenadas exactas (ejemplo: x=100, y=-50). Los tutores del BTI relacionan este juego matemático con el movimiento del cursor y de los personajes en cualquier software o videojuego.
+                        </p>
+                    </div>
+                    <div class="pl-4 border-l-2 border-crece-azulUniforme">
+                        <h4 class="font-bold text-slate-900 text-xs">Desarrollo (55 Minutos) - Laboratorio de Programación</h4>
+                        <p class="text-xs text-slate-600 mt-1">
+                            <strong>Paso 1:</strong> Se carga el escenario de fondo llamado <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-purple-600">X-Y Grid</code>. Los alumnos analizan los límites y el origen de coordenadas (0,0).
+                            <br><strong>Paso 2:</strong> Programan el bloque <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-blue-600">ir a x: 0 y: 0</code> al hacer clic en bandera verde para inicializar siempre el personaje en el centro de la pantalla.
+                            <br><strong>Paso 3:</strong> Colocan 4 gemas o frutas en distintas coordenadas del escenario (por ejemplo: esquina superior derecha [x:180, y:120], esquina inferior izquierda [x:-180, y:-120], etc.).
+                            <br><strong>Paso 4:</strong> Programan al personaje para que se mueva de gema en gema usando el bloque <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-blue-600">deslizar en 1.5 segundos a x: [coordenada] y: [coordenada]</code> al presionarlas, logrando un movimiento de patrullaje suave.
+                        </p>
+                    </div>
+                    <div class="pl-4 border-l-2 border-emerald-500">
+                        <h4 class="font-bold text-slate-900 text-xs">Cierre (20 Minutos) - Puesta en Común</h4>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Se debate sobre el porqué los personajes no deben comenzar en un sitio aleatorio cada vez que abrimos un juego. Los estudiantes comprueban que, al presionar la bandera verde, sus personajes vuelven instantáneamente al centro del plano. Guardado del proyecto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Criterios de Evaluacion -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">4. Indicadores de Evaluación</h3>
+                <ul class="list-decimal pl-5 space-y-1">
+                    <li>Ubica e introduce coordenadas X e Y específicas para situar objetos en el escenario de forma milimétrica.</li>
+                    <li>Utiliza adecuadamente bloques de movimiento interpolado (`deslizar`) para dar fluidez.</li>
+                    <li>Inicializa de forma correcta la posición de los objetos al inicio de la ejecución.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer signatures -->
+        <div class="mt-12 pt-8 border-t border-slate-100 grid grid-cols-3 gap-8 text-center text-[10px] text-slate-400">
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Tutoría 3° BTI</span>
+            </div>
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Coordinación Pedagógica</span>
+            </div>
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Dirección CRECE</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

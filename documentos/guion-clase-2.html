@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guión de Clase 2: Bucles y Repeticiones Lógicas - CRECE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crece: {
+                            bordo: '#700816',
+                            rojo: '#e51d24',
+                            azulPatrio: '#363092',
+                            azulUniforme: '#1b6391',
+                            gris: '#f9f9f9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+                font-size: 12px;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 sm:p-8">
+
+    <!-- Print Header Controls -->
+    <div class="max-w-4xl mx-auto mb-6 no-print flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+        <a href="../planificaciones.html" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-crece-bordo transition-colors">
+            <i class="ri-arrow-left-line"></i>
+            <span>Volver a Planificaciones</span>
+        </a>
+        <button onclick="window.print()" class="inline-flex items-center gap-2 px-4 py-2 bg-crece-bordo text-white text-xs font-bold rounded-lg shadow-md hover:bg-crece-bordo-light transition-all">
+            <i class="ri-printer-line"></i>
+            <span>Guardar / Imprimir PDF</span>
+        </button>
+    </div>
+
+    <!-- Main PDF Content Container -->
+    <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-2xl shadow-xl border border-slate-100">
+        
+        <!-- School Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-6 pb-6 border-b-2 border-slate-100 mb-8">
+            <div class="flex items-center gap-4 text-center sm:text-left">
+                <img src="../css/Logo.png" alt="Logo CRECE" class="w-16 h-16 object-cover rounded-xl shadow-sm">
+                <div>
+                    <h1 class="font-['Outfit'] font-extrabold text-xl text-crece-bordo">CRECE</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Dr. José Gaspar Rodríguez de Francia</p>
+                    <p class="text-xs font-medium text-crece-azulUniforme mt-0.5">3° BTI - Bachillerato Técnico en Informática</p>
+                </div>
+            </div>
+            <div class="text-center sm:text-right text-xs text-slate-400 font-mono">
+                <span class="block">PROYECTO INTEGRADOR</span>
+                <span class="block text-slate-600 font-bold mt-0.5">Codifica tu Mundo</span>
+                <span class="block mt-1">Año Escolar 2026</span>
+            </div>
+        </div>
+
+        <!-- Document Identity -->
+        <div class="mb-8">
+            <span class="px-3 py-1 rounded bg-crece-bordo/10 text-crece-bordo text-[10px] font-bold uppercase tracking-wider">Planificación Docente - Guión de Clase 2</span>
+            <h2 class="font-['Outfit'] font-black text-2xl sm:text-3xl text-slate-900 mt-2">Bucles y Repeticiones Lógicas</h2>
+            <p class="text-slate-500 text-sm mt-1">Optimización del código y creación de movimientos repetitivos eficientes.</p>
+        </div>
+
+        <!-- Meta Table -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-slate-50 rounded-xl mb-8 text-xs">
+            <div>
+                <span class="block text-slate-400 font-medium">Grado Destinatario</span>
+                <span class="font-bold text-slate-800">5° Grado</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Fecha</span>
+                <span class="font-bold text-slate-800">13 de Abril, 2026</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Duración</span>
+                <span class="font-bold text-slate-800">90 Minutos</span>
+            </div>
+            <div>
+                <span class="block text-slate-400 font-medium">Desarrolladores</span>
+                <span class="font-bold text-slate-800 text-[10px] leading-tight block">Maximo Miranda, Nahum Velazquez, Jean Vera</span>
+            </div>
+        </div>
+
+        <!-- Class Content -->
+        <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+            <!-- Objetivos -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">1. Objetivos del Aprendizaje</h3>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Comprender el concepto de bucle o ciclo iterativo como estructura que ahorra líneas de código.</li>
+                    <li>Diferenciar y utilizar adecuadamente las estructuras de control <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-orange-600">repetir X veces</code> y <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-orange-600">por siempre</code>.</li>
+                    <li>Diseñar una animación básica donde un objeto camine y rebote en los bordes de manera indefinida.</li>
+                </ul>
+            </div>
+
+            <!-- Materiales -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">2. Materiales y Recursos</h3>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Computadoras individuales con el entorno de Scratch 3.0.</li>
+                    <li>Proyector y pizarra acrílica para explicaciones conceptuales.</li>
+                    <li>Ficha de Trabajo Nº 2 "El Bucle Infinito del Gato".</li>
+                </ul>
+            </div>
+
+            <!-- Fases de la Clase -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">3. Secuencia Didáctica (Fases de la Clase)</h3>
+                <div class="space-y-4">
+                    <div class="pl-4 border-l-2 border-crece-bordo">
+                        <h4 class="font-bold text-slate-900 text-xs">Inicio (15 Minutos) - Dinámica Desenchufada: El Bucle Humano</h4>
+                        <p class="text-xs text-slate-600 mt-1">
+                            El tutor del BTI escribe en la pizarra una serie repetitiva de instrucciones físicas (por ejemplo: "aplaudir, saltar, aplaudir, saltar, aplaudir, saltar..."). Se les pregunta a los estudiantes si hay una forma más corta de escribirlo. Se introduce la noción de bucle diciendo: "Repetir 3 veces: aplaudir, saltar". Se analiza el ahorro de energía y espacio.
+                        </p>
+                    </div>
+                    <div class="pl-4 border-l-2 border-crece-azulUniforme">
+                        <h4 class="font-bold text-slate-900 text-xs">Desarrollo (55 Minutos) - Laboratorio de Scratch</h4>
+                        <p class="text-xs text-slate-600 mt-1">
+                            <strong>Paso 1:</strong> Los alumnos crean un programa sin bucles que mueva al gato de izquierda a derecha duplicando bloques. Notan el desorden.
+                            <br><strong>Paso 2:</strong> Se introduce el bloque naranja de control <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-orange-600">por siempre</code>. Lo reemplazan y ejecutan. Observan cómo el gato sale del escenario.
+                            <br><strong>Paso 3:</strong> Se enseña el uso del bloque <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-blue-600">si toca un borde, rebotar</code> y a configurar el estilo de rotación izquierda-derecha para evitar que camine de cabeza.
+                            <br><strong>Paso 4:</strong> Prueban el bloque <code class="bg-slate-100 px-1 py-0.5 rounded font-mono text-[11px] text-orange-600">repetir 10</code> para simular un salto controlado (avanzar hacia arriba en Y y luego descender).
+                        </p>
+                    </div>
+                    <div class="pl-4 border-l-2 border-emerald-500">
+                        <h4 class="font-bold text-slate-900 text-xs">Cierre (20 Minutos) - Consolidación del Aprendizaje</h4>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Puesta en común: Reto relámpago de preguntas para verificar si distinguen cuándo usar "por siempre" (caminar continuamente) y cuándo "repetir X" (un salto de 10 pasos). Los estudiantes guardan sus proyectos con la nomenclatura "Clase2_NombreApellido".
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Criterios de Evaluacion -->
+            <div>
+                <h3 class="font-['Outfit'] font-bold text-base text-slate-900 border-b border-slate-100 pb-1 mb-3">4. Indicadores de Evaluación</h3>
+                <ul class="list-decimal pl-5 space-y-1">
+                    <li>Distingue correctamente el uso de bucles finitos e infinitos.</li>
+                    <li>Utiliza de forma pertinente el bloque de rebote en los bordes para control de límites de pantalla.</li>
+                    <li>Identifica y aplica el estilo de rotación horizontal del objeto.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer signatures -->
+        <div class="mt-12 pt-8 border-t border-slate-100 grid grid-cols-3 gap-8 text-center text-[10px] text-slate-400">
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Tutoría 3° BTI</span>
+            </div>
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Coordinación Pedagógica</span>
+            </div>
+            <div>
+                <div class="w-24 h-[1px] bg-slate-200 mx-auto mb-2"></div>
+                <span>Dirección CRECE</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -43,16 +43,14 @@
     <header id="main-nav" class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-white/70 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-crece-bordo to-crece-rojo flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                    <i class="ri-code-s-slash-line text-white text-xl font-bold"></i>
-                </div>
+                <img src="css/Logo.png" alt="Logo CRECE" class="w-10 h-10 rounded-xl object-cover shadow-md group-hover:scale-105 transition-transform duration-300">
                 <div>
                     <span class="font-['Outfit'] font-black text-2xl tracking-tight text-crece-bordo">CRECE</span>
                     <span class="block text-[9px] uppercase tracking-widest text-crece-azulUniforme font-bold -mt-1">Dr. J. G. R. de Francia</span>
                 </div>
             </a>
             
-            <nav class="hidden lg:flex items-center gap-8">
+            <nav class="hidden lg:flex items-center gap-6">
                 <a href="index.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Inicio</a>
                 <a href="institucion.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Institución</a>
                 <a href="proyecto.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Codifica tu Mundo</a>
@@ -60,6 +58,7 @@
                 <a href="galeria.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Galería</a>
                 <a href="planificaciones.html" class="nav-link active text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Planificaciones</a>
                 <a href="asistencia.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Asistencia</a>
+                <a href="documentacion.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Documentación</a>
                 <a href="contacto.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Contacto</a>
             </nav>
             
@@ -108,6 +107,9 @@
             </a>
             <a href="asistencia.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
                 <i class="ri-calendar-check-line text-lg"></i> Asistencia
+            </a>
+            <a href="documentacion.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-file-text-line text-lg"></i> Documentación
             </a>
             <a href="contacto.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
                 <i class="ri-contacts-line text-lg"></i> Contacto
@@ -172,9 +174,7 @@
             <!-- Col 1 -->
             <div class="md:col-span-5 space-y-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-crece-bordo flex items-center justify-center">
-                        <i class="ri-code-s-slash-line text-white font-bold"></i>
-                    </div>
+                    <img src="css/Logo.png" alt="Logo CRECE" class="w-9 h-9 rounded-xl object-cover">
                     <span class="font-['Outfit'] font-black text-xl text-white tracking-tight">CRECE</span>
                 </div>
                 <p class="text-sm text-slate-400 max-w-sm">
@@ -193,8 +193,8 @@
                 <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Proyecto</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="proyecto.html" class="hover:text-white transition-colors">Fundamentación</a></li>
-                    <li><a href="proyecto.html#objetivos" class="hover:text-white transition-colors">Objetivos</a></li>
-                    <li><a href="proyecto.html#metodologia" class="hover:text-white transition-colors">Metodología</a></li>
+                    <li><a href="proyecto.html#obj" class="hover:text-white transition-colors">Objetivos</a></li>
+                    <li><a href="proyecto.html#met" class="hover:text-white transition-colors">Metodología</a></li>
                     <li><a href="proyectos-scratch.html" class="hover:text-white transition-colors">Proyectos Scratch</a></li>
                 </ul>
             </div>
@@ -212,7 +212,10 @@
         </div>
         
         <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
-            <p>© 2026 Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia. Creado por 3° BTI.</p>
+            <div class="space-y-1 text-center sm:text-left">
+                <p>© 2026 Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia. Creado por 3° BTI.</p>
+                <p class="text-[10px] text-slate-500">Desarrolladores: Maximo Alejandro Miranda, Nahum Agustin Velazquez Gonzalez y Jean Carlos Vera Morel.</p>
+            </div>
             <div class="flex items-center gap-6">
                 <span>Codifica tu Mundo &copy; 2026</span>
             </div>
@@ -230,42 +233,42 @@
                 fecha: "Semana 1 - 06/04/2026",
                 grado: "5",
                 descripcion: "Introducción a la lógica algorítmica, partes del entorno Scratch, configuración de objetos y uso de la bandera verde.",
-                pdf: "#"
+                pdf: "documentos/guion-clase-1.html"
             },
             {
                 titulo: "Guía Pedagógica: Bucles y Repeticiones Lógicas",
                 fecha: "Semana 2 - 13/04/2026",
                 grado: "5",
                 descripcion: "Explicación teórica y práctica de la repetición de bloques (Bucle 'por siempre' y 'repetir N veces') con ejemplos.",
-                pdf: "#"
+                pdf: "documentos/guion-clase-2.html"
             },
             {
                 titulo: "Esquema de Clase: Sensores y Control de Teclado",
                 fecha: "Semana 3 - 20/04/2026",
                 grado: "5",
                 descripcion: "Manejo de flechas del teclado para desplazar objetos en pantalla y detección de bordes y colores mediante sensores.",
-                pdf: "#"
+                pdf: "documentos/guion-clase-3.html"
             },
             {
                 titulo: "Guía de Diseño: Animación de Historias y Cuentos",
                 fecha: "Semana 4 - 27/04/2026",
                 grado: "6",
                 descripcion: "Creación de diálogos secuenciales alternando disfraces de objetos y uso del bloque de transmisión de mensajes.",
-                pdf: "#"
+                pdf: "documentos/guion-clase-4.html"
             },
             {
                 titulo: "Diseño Curricular: Coordenadas y Movimiento Preciso",
                 fecha: "Semana 5 - 04/05/2026",
                 grado: "6",
                 descripcion: "Enseñanza de los ejes cartesianos X e Y sobre el lienzo para guiar sprites con coordenadas absolutas y relativas.",
-                pdf: "#"
+                pdf: "documentos/guion-clase-5.html"
             },
             {
                 titulo: "Evaluación de Proyectos Finales y Depuración de Errores",
                 fecha: "Semana 6 - 11/05/2026",
                 grado: "6",
                 descripcion: "Metodología de detección de errores (debugging) lógicos y corrección de comportamientos imprevistos en bloques.",
-                pdf: "#"
+                pdf: "documentos/guion-clase-6.html"
             }
         ];
 

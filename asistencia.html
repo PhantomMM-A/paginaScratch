@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistencia - CRECE</title>
+    <title>Asistencia & Gestión - CRECE</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,6 +36,18 @@
     
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        .tab-btn { transition: all 0.2s ease; }
+        .tab-btn.active {
+            background-color: #700816;
+            color: white;
+            box-shadow: 0 4px 12px rgba(112, 8, 22, 0.2);
+        }
+        .badge-presente { background-color: #dcfce7; color: #15803d; }
+        .badge-ausente { background-color: #fee2e2; color: #b91c1c; }
+        .badge-tardanza { background-color: #fef3c7; color: #a16207; }
+    </style>
 </head>
 <body class="bg-crece-gris font-['Inter'] text-slate-800 antialiased bg-dots min-h-screen flex flex-col">
 
@@ -43,194 +55,216 @@
     <header id="main-nav" class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-white/70 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-crece-bordo to-crece-rojo flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                    <i class="ri-code-s-slash-line text-white text-xl font-bold"></i>
-                </div>
+                <img src="css/Logo.png" alt="Logo CRECE" class="w-10 h-10 rounded-xl object-cover shadow-md group-hover:scale-105 transition-transform duration-300">
                 <div>
                     <span class="font-['Outfit'] font-black text-2xl tracking-tight text-crece-bordo">CRECE</span>
                     <span class="block text-[9px] uppercase tracking-widest text-crece-azulUniforme font-bold -mt-1">Dr. J. G. R. de Francia</span>
                 </div>
             </a>
             
-            <nav class="hidden lg:flex items-center gap-8">
+            <nav class="hidden lg:flex items-center gap-6">
                 <a href="index.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Inicio</a>
                 <a href="institucion.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Institución</a>
                 <a href="proyecto.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Codifica tu Mundo</a>
                 <a href="proyectos-scratch.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Proyectos Scratch</a>
                 <a href="galeria.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Galería</a>
                 <a href="planificaciones.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Planificaciones</a>
-                <a href="asistencia.html" class="nav-link active text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Asistencia</a>
+                <a href="asistencia.html" class="nav-link active text-sm font-medium text-crece-bordo font-semibold">Asistencia</a>
+                <a href="documentacion.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Documentación</a>
                 <a href="contacto.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Contacto</a>
             </nav>
             
             <div class="hidden lg:flex items-center gap-4">
-                <a href="proyectos-scratch.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-crece-bordo to-crece-bordo-light hover:shadow-lg transition-all duration-300 hover-glow-bordo active:scale-95">
-                    <span>Ver Proyectos</span>
-                    <i class="ri-arrow-right-line"></i>
-                </a>
+                <span class="flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full text-xs font-semibold text-slate-600" id="connection-status">
+                    <span class="w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse" id="status-dot"></span>
+                    <span id="status-text">Conectando...</span>
+                </span>
             </div>
-            
-            <button id="menu-btn" class="lg:hidden text-slate-700 hover:text-crece-bordo p-2 rounded-lg hover:bg-slate-100 transition-colors" aria-label="Abrir Menú">
-                <i class="ri-menu-3-line text-2xl"></i>
-            </button>
         </div>
     </header>
-
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-overlay" class="mobile-overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 lg:hidden"></div>
-
-    <!-- Mobile Menu Sidebar -->
-    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 bottom-0 w-[300px] bg-white z-50 shadow-2xl flex flex-col p-6 lg:hidden">
-        <div class="flex justify-between items-center mb-8">
-            <span class="font-['Outfit'] font-black text-xl text-crece-bordo">CRECE</span>
-            <button id="close-menu-btn" class="text-slate-500 hover:text-crece-bordo p-2 rounded-lg hover:bg-slate-100 transition-colors" aria-label="Cerrar Menú">
-                <i class="ri-close-line text-2xl"></i>
-            </button>
-        </div>
-        <nav class="flex flex-col gap-4 flex-grow">
-            <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
-                <i class="ri-home-line text-lg"></i> Inicio
-            </a>
-            <a href="institucion.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
-                <i class="ri-building-line text-lg"></i> Institución
-            </a>
-            <a href="proyecto.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
-                <i class="ri-terminal-box-line text-lg"></i> Codifica tu Mundo
-            </a>
-            <a href="proyectos-scratch.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
-                <i class="ri-palette-line text-lg"></i> Proyectos Scratch
-            </a>
-            <a href="galeria.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
-                <i class="ri-gallery-line text-lg"></i> Galería
-            </a>
-            <a href="planificaciones.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
-                <i class="ri-draft-line text-lg"></i> Planificaciones
-            </a>
-            <a href="asistencia.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
-                <i class="ri-calendar-check-line text-lg"></i> Asistencia
-            </a>
-            <a href="contacto.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
-                <i class="ri-contacts-line text-lg"></i> Contacto
-            </a>
-        </nav>
-        <div class="pt-6 border-t border-slate-100">
-            <a href="proyectos-scratch.html" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-white bg-crece-bordo shadow-md shadow-crece-bordo/10">
-                <span>Ver Proyectos</span>
-                <i class="ri-arrow-right-line"></i>
-            </a>
-        </div>
-    </div>
 
     <!-- Main Content -->
     <main class="flex-grow pt-24">
         
         <!-- Header -->
         <section class="bg-white py-12 border-b border-slate-100">
-            <div class="max-w-7xl mx-auto px-6 text-center md:text-left" data-animate="fade-in-up">
-                <span class="text-xs font-bold text-crece-bordo uppercase tracking-widest block mb-1">Control de Gestión</span>
-                <h1 class="font-['Outfit'] font-black text-3xl sm:text-4xl text-slate-900 tracking-tight leading-none mb-3">
-                    Dashboard de Asistencia
-                </h1>
-                <p class="text-slate-500 text-sm max-w-2xl">
-                    Monitoreo pedagógico del cumplimiento de talleres semanales. Consulta el historial de asistencia por grado y fecha de clases.
-                </p>
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="text-xs font-bold text-crece-bordo uppercase tracking-widest block mb-1">Panel Administrativo</span>
+                    <h1 class="font-['Outfit'] font-black text-3xl sm:text-4xl text-slate-900 tracking-tight leading-none mb-3">
+                        Gestión de Alumnos y Asistencia
+                    </h1>
+                    <p class="text-slate-500 text-sm max-w-2xl">
+                        Agregá y eliminá estudiantes de la base de datos, registrá su asistencia diaria y consultá el listado actual.
+                    </p>
+                </div>
+                
+                <!-- Tab Selector -->
+                <div class="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+                    <button onclick="switchTab('asistencia')" id="btn-tab-asistencia" class="tab-btn active px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider">
+                        <i class="ri-calendar-check-line mr-1 text-sm"></i> Asistencia
+                    </button>
+                    <button onclick="switchTab('alumnos')" id="btn-tab-alumnos" class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800">
+                        <i class="ri-group-line mr-1 text-sm"></i> Estudiantes
+                    </button>
+                </div>
             </div>
         </section>
 
-        <!-- Stats Overview Cards -->
+        <!-- Stats Grid -->
         <section class="py-8">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <!-- Stat Card 1 -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center text-2xl">
-                        <i class="ri-checkbox-circle-line"></i>
-                    </div>
-                    <div>
-                        <span class="block text-slate-400 text-[10px] font-bold uppercase tracking-wider">Tasa de Asistencia</span>
-                        <span class="font-['Outfit'] font-black text-xl text-slate-800">93.5%</span>
-                    </div>
-                </div>
-                
-                <!-- Stat Card 2 -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-crece-bordo/10 text-crece-bordo flex items-center justify-center text-2xl">
                         <i class="ri-user-follow-line"></i>
                     </div>
                     <div>
-                        <span class="block text-slate-400 text-[10px] font-bold uppercase tracking-wider">Total Alumnos Matriculados</span>
-                        <span class="font-['Outfit'] font-black text-xl text-slate-800">48 Alumnos</span>
+                        <span class="block text-slate-400 text-[10px] font-bold uppercase tracking-wider">Total Estudiantes</span>
+                        <span id="stat-total-students" class="font-['Outfit'] font-black text-2xl text-slate-800">0</span>
                     </div>
                 </div>
-                
-                <!-- Stat Card 3 -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-crece-azulUniforme/10 text-crece-azulUniforme flex items-center justify-center text-2xl">
-                        <i class="ri-calendar-event-line"></i>
+                    <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center text-2xl">
+                        <i class="ri-checkbox-circle-line"></i>
                     </div>
                     <div>
-                        <span class="block text-slate-400 text-[10px] font-bold uppercase tracking-wider">Clases Dictadas</span>
-                        <span class="font-['Outfit'] font-black text-xl text-slate-800">12 Sesiones</span>
+                        <span class="block text-slate-400 text-[10px] font-bold uppercase tracking-wider">Presentes Hoy</span>
+                        <span id="stat-present-today" class="font-['Outfit'] font-black text-2xl text-slate-800">0</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-2xl">
+                        <i class="ri-close-circle-line"></i>
+                    </div>
+                    <div>
+                        <span class="block text-slate-400 text-[10px] font-bold uppercase tracking-wider">Ausentes Hoy</span>
+                        <span id="stat-absent-today" class="font-['Outfit'] font-black text-2xl text-slate-800">0</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Filters and Table Container -->
-        <section class="py-8 lg:py-16">
+        <!-- PANEL 1: ASISTENCIA -->
+        <section id="tab-content-asistencia" class="py-4">
             <div class="max-w-7xl mx-auto px-6">
-                <!-- Inner Panel -->
                 <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden p-6 space-y-6">
                     
-                    <!-- Filters Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Date Filter -->
-                        <div>
-                            <label for="filter-date" class="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Fecha de Sesión</label>
-                            <select id="filter-date" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-crece-bordo">
-                                <option value="all">Todas las fechas</option>
-                                <option value="2026-05-15">15/05/2026 - Sesión 6</option>
-                                <option value="2026-05-08">08/05/2026 - Sesión 5</option>
-                                <option value="2026-05-01">01/05/2026 - Sesión 4</option>
-                                <option value="2026-04-24">24/04/2026 - Sesión 3</option>
-                            </select>
+                    <!-- Control Bar / Filters -->
+                    <div class="flex flex-col md:flex-row justify-between items-stretch md:items-end gap-4 pb-4 border-b border-slate-100">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-grow">
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Fecha de Sesión</label>
+                                <input type="date" id="attendance-date" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-crece-bordo">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Grado Escolar</label>
+                                <select id="attendance-grade" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-crece-bordo">
+                                    <option value="all">Todos los grados</option>
+                                    <option value="5">5° Grado</option>
+                                    <option value="6">6° Grado</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Tema de la Clase</label>
+                                <input type="text" id="attendance-topic" placeholder="Ej: Programación Scratch" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-crece-bordo">
+                            </div>
                         </div>
-                        
-                        <!-- Grade Filter -->
+                        <button onclick="saveAttendance()" class="px-5 py-2.5 bg-crece-bordo text-white font-bold text-xs rounded-xl uppercase tracking-wider hover:bg-red-950 transition-colors shadow-sm self-end">
+                            <i class="ri-save-line mr-1"></i> Guardar Asistencia
+                        </button>
+                    </div>
+
+                    <!-- Attendance List Table -->
+                    <div class="overflow-x-auto rounded-xl border border-slate-100">
+                        <table class="w-full text-left border-collapse table-modern">
+                            <thead>
+                                <tr class="bg-slate-50">
+                                    <th class="p-3 text-[10px] font-bold uppercase text-slate-400 border-b border-slate-150">Estudiante</th>
+                                    <th class="p-3 text-[10px] font-bold uppercase text-slate-400 border-b border-slate-150">Grado</th>
+                                    <th class="p-3 text-[10px] font-bold uppercase text-slate-400 border-b border-slate-150 text-center">Estado de Asistencia</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-rows">
+                                <tr>
+                                    <td colspan="3" class="text-center text-slate-400 py-8 text-xs">Cargando lista de asistencia...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Present / Absent List Breakdown -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                        <div class="bg-green-50/50 p-5 rounded-2xl border border-green-100">
+                            <h3 class="text-green-800 font-bold text-xs uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                                <i class="ri-checkbox-circle-fill text-green-600 text-sm"></i> Listado de Presentes
+                            </h3>
+                            <ul id="present-list" class="text-xs text-green-700 space-y-1.5 list-disc pl-4">
+                                <li class="italic text-slate-400 list-none pl-0">No hay estudiantes presentes registrados hoy.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50/50 p-5 rounded-2xl border border-red-100">
+                            <h3 class="text-red-800 font-bold text-xs uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                                <i class="ri-close-circle-fill text-red-600 text-sm"></i> Listado de Ausentes
+                            </h3>
+                            <ul id="absent-list" class="text-xs text-red-700 space-y-1.5 list-disc pl-4">
+                                <li class="italic text-slate-400 list-none pl-0">Todos los estudiantes están presentes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL 2: ESTUDIANTES (ABM) -->
+        <section id="tab-content-alumnos" class="py-4 hidden">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Form to Add Student -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm h-fit space-y-4">
+                    <h2 class="font-['Outfit'] font-bold text-lg text-slate-900 flex items-center gap-2">
+                        <i class="ri-user-add-line text-crece-bordo"></i> Agregar Estudiante
+                    </h2>
+                    <p class="text-xs text-slate-400">Ingresá los datos del nuevo estudiante para guardarlo en la base de datos.</p>
+                    
+                    <form id="add-student-form" class="space-y-4" onsubmit="handleAddStudent(event)">
                         <div>
-                            <label for="filter-grade" class="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Grado Escolar</label>
-                            <select id="filter-grade" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-crece-bordo">
-                                <option value="all">Todos los grados</option>
+                            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Nombre y Apellido</label>
+                            <input type="text" id="student-name" required placeholder="Ej: Juan Pérez" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-crece-bordo">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Grado</label>
+                            <select id="student-grade" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-crece-bordo">
                                 <option value="5">5° Grado</option>
                                 <option value="6">6° Grado</option>
                             </select>
                         </div>
-                        
-                        <!-- State Filter -->
-                        <div>
-                            <label for="filter-status" class="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Estado</label>
-                            <select id="filter-status" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-crece-bordo">
-                                <option value="all">Todos los estados</option>
-                                <option value="Presente">Presente</option>
-                                <option value="Ausente">Ausente</option>
-                                <option value="Tardanza">Tardanza</option>
-                            </select>
-                        </div>
+                        <button type="submit" class="w-full py-3 bg-crece-bordo hover:bg-red-950 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-sm">
+                            Guardar Estudiante
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Students Table List -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h2 class="font-['Outfit'] font-bold text-lg text-slate-900 flex items-center gap-2">
+                            <i class="ri-group-line text-crece-azulUniforme"></i> Estudiantes Registrados
+                        </h2>
+                        <span id="student-count-badge" class="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold">0 Alumnos</span>
                     </div>
 
-                    <!-- Responsive Table -->
                     <div class="overflow-x-auto rounded-xl border border-slate-100">
                         <table class="w-full text-left border-collapse table-modern">
                             <thead>
-                                <tr>
-                                    <th>Alumno</th>
-                                    <th>Grado</th>
-                                    <th>Fecha</th>
-                                    <th>Tema de Clase</th>
-                                    <th>Estado</th>
+                                <tr class="bg-slate-50">
+                                    <th class="p-3 text-[10px] font-bold uppercase text-slate-400 border-b border-slate-150">Nombre</th>
+                                    <th class="p-3 text-[10px] font-bold uppercase text-slate-400 border-b border-slate-150">Grado</th>
+                                    <th class="p-3 text-[10px] font-bold uppercase text-slate-400 border-b border-slate-150 text-right">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody id="attendance-rows">
-                                <!-- Dynamic rendering -->
+                            <tbody id="student-list-rows">
+                                <tr>
+                                    <td colspan="3" class="text-center text-slate-400 py-8 text-xs">Cargando estudiantes...</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -241,142 +275,349 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-10">
-            <!-- Col 1 -->
-            <div class="md:col-span-5 space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-crece-bordo flex items-center justify-center">
-                        <i class="ri-code-s-slash-line text-white font-bold"></i>
-                    </div>
-                    <span class="font-['Outfit'] font-black text-xl text-white tracking-tight">CRECE</span>
-                </div>
-                <p class="text-sm text-slate-400 max-w-sm">
-                    Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia. 
-                    Memoria digital del Proyecto de Aprendizaje y Servicio: "Codifica tu Mundo".
-                </p>
-                <div class="flex items-center gap-3">
-                    <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-crece-bordo hover:text-white transition-colors flex items-center justify-center text-slate-400" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
-                    <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-crece-bordo hover:text-white transition-colors flex items-center justify-center text-slate-400" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
-                    <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-crece-bordo hover:text-white transition-colors flex items-center justify-center text-slate-400" aria-label="GitHub"><i class="ri-github-fill"></i></a>
-                </div>
-            </div>
-            
-            <!-- Col 2 -->
-            <div class="md:col-span-3">
-                <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Proyecto</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="proyecto.html" class="hover:text-white transition-colors">Fundamentación</a></li>
-                    <li><a href="proyecto.html#objetivos" class="hover:text-white transition-colors">Objetivos</a></li>
-                    <li><a href="proyecto.html#metodologia" class="hover:text-white transition-colors">Metodología</a></li>
-                    <li><a href="proyectos-scratch.html" class="hover:text-white transition-colors">Proyectos Scratch</a></li>
-                </ul>
-            </div>
-            
-            <!-- Col 3 -->
-            <div class="md:col-span-4">
-                <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Institución</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="institucion.html" class="hover:text-white transition-colors">Historia del CRECE</a></li>
-                    <li><a href="planificaciones.html" class="hover:text-white transition-colors">Planificaciones</a></li>
-                    <li><a href="asistencia.html" class="hover:text-white transition-colors">Registro de Asistencia</a></li>
-                    <li><a href="contacto.html" class="hover:text-white transition-colors">Contacto Oficial</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-12 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>© 2026 Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia. Creado por 3° BTI.</p>
-            <div class="flex items-center gap-6">
-                <span>Codifica tu Mundo &copy; 2026</span>
-            </div>
+            <span>Codifica tu Mundo &copy; 2026</span>
         </div>
     </footer>
 
-    <!-- Main JS file -->
-    <script src="js/main.js"></script>
-    
-    <!-- Local Table filter logic -->
+    <!-- JS Logic -->
     <script>
-        const ATTENDANCE_DATA = [
-            { alumno: "Hugo Cabrera", grado: "5", fecha: "2026-05-15", tema: "Bucles Condicionales", estado: "Presente" },
-            { alumno: "Lara Giménez", grado: "5", fecha: "2026-05-15", tema: "Bucles Condicionales", estado: "Presente" },
-            { alumno: "Ramiro Espínola", grado: "6", fecha: "2026-05-15", tema: "Variables Complejas", estado: "Ausente" },
-            { alumno: "Emma Cáceres", grado: "6", fecha: "2026-05-15", tema: "Variables Complejas", estado: "Presente" },
-            { alumno: "Tadeo Ortiz", grado: "5", fecha: "2026-05-15", tema: "Bucles Condicionales", estado: "Tardanza" },
-            { alumno: "Paula Benítez", grado: "5", fecha: "2026-05-08", tema: "Coordenadas X/Y", estado: "Presente" },
-            { alumno: "Carlos Insfrán", grado: "6", fecha: "2026-05-08", tema: "Lógica de Colisiones", estado: "Presente" },
-            { alumno: "Ramiro Espínola", grado: "6", fecha: "2026-05-08", tema: "Lógica de Colisiones", estado: "Presente" },
-            { alumno: "Hugo Cabrera", grado: "5", fecha: "2026-05-08", tema: "Coordenadas X/Y", estado: "Ausente" },
-            { alumno: "Guillermo Alvarenga", grado: "5", fecha: "2026-05-01", tema: "Detección de Teclas", estado: "Presente" },
-            { alumno: "Lara Giménez", grado: "5", fecha: "2026-05-01", tema: "Detección de Teclas", estado: "Presente" },
-            { alumno: "Emma Cáceres", grado: "6", fecha: "2026-05-01", tema: "Movimiento de Sprites", estado: "Tardanza" }
-        ];
+        const API_URL = ""; // Relative path to communicate with the FastAPI backend
+        
+        let allStudents = [];
+        let sessionAttendance = []; // Current session attendance records
+        let currentTab = "asistencia";
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const tableBody = document.getElementById('attendance-rows');
-            const dateSelect = document.getElementById('filter-date');
-            const gradeSelect = document.getElementById('filter-grade');
-            const statusSelect = document.getElementById('filter-status');
-            
-            const renderTable = () => {
-                tableBody.innerHTML = '';
-                
-                const selectedDate = dateSelect.value;
-                const selectedGrade = gradeSelect.value;
-                const selectedStatus = statusSelect.value;
-                
-                const filtered = ATTENDANCE_DATA.filter(row => {
-                    const matchesDate = selectedDate === 'all' || row.fecha === selectedDate;
-                    const matchesGrade = selectedGrade === 'all' || row.grado === selectedGrade;
-                    const matchesStatus = selectedStatus === 'all' || row.estado === selectedStatus;
-                    return matchesDate && matchesGrade && matchesStatus;
-                });
-                
-                if (filtered.length === 0) {
-                    tableBody.innerHTML = `
-                        <tr>
-                            <td colspan="5" class="text-center text-slate-400 py-8 text-xs font-medium">
-                                No se encontraron registros de asistencia con los filtros seleccionados.
-                            </td>
-                        </tr>
-                    `;
-                    return;
+        // Set default date to today
+        document.getElementById('attendance-date').valueAsDate = new Date();
+
+        // Check backend API connection
+        async function checkConnection() {
+            const statusDot = document.getElementById("status-dot");
+            const statusText = document.getElementById("status-text");
+            try {
+                const res = await fetch(`${API_URL}/api/status`);
+                if(res.ok) {
+                    statusDot.className = "w-2.5 h-2.5 rounded-full bg-green-500 shadow-md";
+                    statusText.textContent = "Conectado al Servidor";
+                    return true;
                 }
-                
-                filtered.forEach(row => {
-                    const badgeClass = row.estado === 'Presente' ? 'badge-present' : 
-                                       row.estado === 'Ausente' ? 'badge-absent' : 
-                                       'badge-late';
-                    
-                    // Format date to local standard DD/MM/YYYY
-                    const [year, month, day] = row.fecha.split('-');
-                    const formattedDate = `${day}/${month}/${year}`;
-                    
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td class="text-xs font-semibold text-slate-800">${row.alumno}</td>
-                        <td class="text-xs text-slate-500">${row.grado}° Grado</td>
-                        <td class="text-xs font-mono text-slate-400">${formattedDate}</td>
-                        <td class="text-xs text-slate-600">${row.tema}</td>
-                        <td>
-                            <span class="inline-block px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${badgeClass}">
-                                ${row.estado}
-                            </span>
-                        </td>
-                    `;
-                    tableBody.appendChild(tr);
-                });
+            } catch (err) {
+                console.warn("Backend offline, switching to LocalStorage Mock Mode.");
+            }
+            statusDot.className = "w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse";
+            statusText.textContent = "Modo Demo (Sin Servidor)";
+            return false;
+        }
+
+        // Initialize lists and tables
+        async function init() {
+            const isOnline = await checkConnection();
+            await fetchStudents(isOnline);
+            await fetchAttendance(isOnline);
+            
+            // Add change listener to reload when date or grade changes
+            document.getElementById('attendance-date').addEventListener('change', () => fetchAttendance(isOnline));
+            document.getElementById('attendance-grade').addEventListener('change', renderAttendanceRows);
+        }
+
+        // --- Tab Navigation ---
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById("tab-content-asistencia").classList.toggle("hidden", tab !== "asistencia");
+            document.getElementById("tab-content-alumnos").classList.toggle("hidden", tab !== "alumnos");
+            
+            document.getElementById("btn-tab-asistencia").className = `tab-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider ${tab === 'asistencia' ? 'active' : 'text-slate-500 hover:text-slate-800'}`;
+            document.getElementById("btn-tab-alumnos").className = `tab-btn px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider ${tab === 'alumnos' ? 'active' : 'text-slate-500 hover:text-slate-800'}`;
+        }
+
+        // --- Fetch & CRUD: Students ---
+        async function fetchStudents(isOnline) {
+            if (isOnline) {
+                try {
+                    const res = await fetch(`${API_URL}/api/estudiantes`);
+                    allStudents = await res.json();
+                } catch(e) {
+                    loadMockStudents();
+                }
+            } else {
+                loadMockStudents();
+            }
+            renderStudentsTable();
+            updateStats();
+        }
+
+        function loadMockStudents() {
+            const stored = localStorage.getItem("mock_students");
+            if (stored) {
+                allStudents = JSON.parse(stored);
+            } else {
+                allStudents = [
+                    { id: 1, nombre: "Hugo Cabrera", grado: "5" },
+                    { id: 2, nombre: "Lara Giménez", grado: "5" },
+                    { id: 3, nombre: "Ramiro Espínola", grado: "6" },
+                    { id: 4, nombre: "Emma Cáceres", grado: "6" },
+                    { id: 5, nombre: "Tadeo Ortiz", grado: "5" }
+                ];
+                saveMockStudents();
+            }
+        }
+
+        function saveMockStudents() {
+            localStorage.setItem("mock_students", JSON.stringify(allStudents));
+        }
+
+        async function handleAddStudent(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById("student-name");
+            const gradeSelect = document.getElementById("student-grade");
+            
+            const newStudent = {
+                nombre: nameInput.value.trim(),
+                grado: gradeSelect.value
             };
+
+            const isOnline = await checkConnection();
+            if (isOnline) {
+                try {
+                    const res = await fetch(`${API_URL}/api/estudiantes`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(newStudent)
+                    });
+                    if (res.ok) {
+                        const saved = await res.json();
+                        allStudents.push(saved);
+                    }
+                } catch(err) {
+                    alert("Error guardando estudiante en el servidor.");
+                }
+            } else {
+                newStudent.id = Date.now();
+                allStudents.push(newStudent);
+                saveMockStudents();
+            }
+
+            nameInput.value = "";
+            renderStudentsTable();
+            updateStats();
+            await fetchAttendance(isOnline);
+        }
+
+        async function deleteStudent(id) {
+            if(!confirm("¿Estás seguro de que querés eliminar a este estudiante?")) return;
+
+            const isOnline = await checkConnection();
+            if (isOnline) {
+                try {
+                    const res = await fetch(`${API_URL}/api/estudiantes/${id}`, {
+                        method: "DELETE"
+                    });
+                    if (res.ok) {
+                        allStudents = allStudents.filter(s => s.id !== id);
+                    }
+                } catch(e) {
+                    alert("Error eliminando estudiante en el servidor.");
+                }
+            } else {
+                allStudents = allStudents.filter(s => s.id !== id);
+                saveMockStudents();
+            }
+            renderStudentsTable();
+            updateStats();
+            await fetchAttendance(isOnline);
+        }
+
+        function renderStudentsTable() {
+            const rowsContainer = document.getElementById("student-list-rows");
+            document.getElementById("student-count-badge").textContent = `${allStudents.length} Alumnos`;
             
-            // Events
-            dateSelect.addEventListener('change', renderTable);
-            gradeSelect.addEventListener('change', renderTable);
-            statusSelect.addEventListener('change', renderTable);
+            if (allStudents.length === 0) {
+                rowsContainer.innerHTML = `<tr><td colspan="3" class="text-center text-slate-400 py-6 text-xs">No hay estudiantes registrados.</td></tr>`;
+                return;
+            }
+
+            rowsContainer.innerHTML = allStudents.map(student => `
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-3 text-sm font-medium text-slate-800">${student.nombre}</td>
+                    <td class="p-3 text-sm text-slate-500">${student.grado}° Grado</td>
+                    <td class="p-3 text-right">
+                        <button onclick="deleteStudent(${student.id})" class="text-red-500 hover:text-red-750 px-2 py-1 text-sm rounded-lg hover:bg-red-50 transition-colors">
+                            <i class="ri-delete-bin-line"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+
+        // --- Attendance Logic ---
+        async function fetchAttendance(isOnline) {
+            const selectedDate = document.getElementById("attendance-date").value;
+            if(!selectedDate) return;
+
+            if (isOnline) {
+                try {
+                    const res = await fetch(`${API_URL}/api/asistencia?fecha=${selectedDate}`);
+                    sessionAttendance = await res.json();
+                } catch (e) {
+                    loadMockAttendance(selectedDate);
+                }
+            } else {
+                loadMockAttendance(selectedDate);
+            }
+            renderAttendanceRows();
+        }
+
+        function loadMockAttendance(dateStr) {
+            const stored = localStorage.getItem(`mock_attendance_${dateStr}`);
+            if (stored) {
+                sessionAttendance = JSON.parse(stored);
+            } else {
+                // Generate default empty attendance for all students on this date
+                sessionAttendance = allStudents.map(student => ({
+                    id: Date.now() + student.id,
+                    estudiante_id: student.id,
+                    fecha: dateStr,
+                    tema: "",
+                    estado: "Ausente"
+                }));
+                localStorage.setItem(`mock_attendance_${dateStr}`, JSON.stringify(sessionAttendance));
+            }
+        }
+
+        function renderAttendanceRows() {
+            const rowsContainer = document.getElementById("attendance-rows");
+            const gradeFilter = document.getElementById("attendance-grade").value;
+
+            // Filter students list based on selected grade
+            const filteredStudents = allStudents.filter(student => gradeFilter === 'all' || student.grado === gradeFilter);
+
+            if (filteredStudents.length === 0) {
+                rowsContainer.innerHTML = `<tr><td colspan="3" class="text-center text-slate-400 py-6 text-xs">No hay estudiantes cargados para este grado.</td></tr>`;
+                return;
+            }
+
+            // Find current class theme (take from first attendance record that has it)
+            const firstRecordWithTopic = sessionAttendance.find(a => a.tema);
+            document.getElementById("attendance-topic").value = firstRecordWithTopic ? firstRecordWithTopic.tema : "";
+
+            rowsContainer.innerHTML = filteredStudents.map(student => {
+                // Find or create attendance entry for this student
+                let record = sessionAttendance.find(a => a.estudiante_id === student.id);
+                if (!record) {
+                    record = { estudiante_id: student.id, estado: "Ausente" };
+                }
+
+                return `
+                    <tr class="hover:bg-slate-50 border-b border-slate-100">
+                        <td class="p-3 text-sm font-medium text-slate-800">${student.nombre}</td>
+                        <td class="p-3 text-sm text-slate-500">${student.grado}° Grado</td>
+                        <td class="p-3 text-center">
+                            <div class="inline-flex rounded-xl bg-slate-100 p-1">
+                                <button onclick="changeStudentStatus(${student.id}, 'Presente')" class="px-3 py-1.5 rounded-lg text-xs font-bold ${record.estado === 'Presente' ? 'bg-green-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}">Presente</button>
+                                <button onclick="changeStudentStatus(${student.id}, 'Tardanza')" class="px-3 py-1.5 rounded-lg text-xs font-bold ${record.estado === 'Tardanza' ? 'bg-yellow-500 text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}">Tardanza</button>
+                                <button onclick="changeStudentStatus(${student.id}, 'Ausente')" class="px-3 py-1.5 rounded-lg text-xs font-bold ${record.estado === 'Ausente' ? 'bg-red-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}">Ausente</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+
+            updateAttendanceBreakdown(filteredStudents);
+        }
+
+        function changeStudentStatus(studentId, newStatus) {
+            let record = sessionAttendance.find(a => a.estudiante_id === studentId);
+            if (!record) {
+                record = { estudiante_id: studentId, estado: "Ausente", fecha: document.getElementById("attendance-date").value };
+                sessionAttendance.push(record);
+            }
+            record.estado = newStatus;
+            renderAttendanceRows();
+            updateStats();
+        }
+
+        async function saveAttendance() {
+            const selectedDate = document.getElementById("attendance-date").value;
+            const topic = document.getElementById("attendance-topic").value.trim();
+            if(!selectedDate) {
+                alert("Por favor selecciona una fecha válida.");
+                return;
+            }
+
+            const isOnline = await checkConnection();
             
-            // Init Render
-            renderTable();
-        });
+            // Set topic for all records
+            sessionAttendance.forEach(a => {
+                a.tema = topic;
+                a.fecha = selectedDate;
+            });
+
+            if (isOnline) {
+                try {
+                    // Send each attendance record to the API
+                    for (const record of sessionAttendance) {
+                        // If record has an ID, we could patch it, otherwise we post a new one.
+                        // For simplicity, our backend API recreates/handles it. Let's post.
+                        await fetch(`${API_URL}/api/asistencia`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(record)
+                        });
+                    }
+                    alert("Asistencia guardada exitosamente en la base de datos.");
+                } catch(e) {
+                    alert("Hubo un problema al guardar en la base de datos.");
+                }
+            } else {
+                localStorage.setItem(`mock_attendance_${selectedDate}`, JSON.stringify(sessionAttendance));
+                alert("Asistencia guardada en almacenamiento local (Modo Demo).");
+            }
+            updateStats();
+        }
+
+        function updateAttendanceBreakdown(filteredStudents) {
+            const presentList = document.getElementById("present-list");
+            const absentList = document.getElementById("absent-list");
+
+            const presentStudents = [];
+            const absentStudents = [];
+
+            filteredStudents.forEach(student => {
+                const record = sessionAttendance.find(a => a.estudiante_id === student.id);
+                if (record && record.estado === "Presente") {
+                    presentStudents.push(student.nombre);
+                } else if (record && record.estado === "Tardanza") {
+                    presentStudents.push(`${student.nombre} (Tardanza)`);
+                } else {
+                    absentStudents.push(student.nombre);
+                }
+            });
+
+            presentList.innerHTML = presentStudents.length > 0 
+                ? presentStudents.map(name => `<li>${name}</li>`).join("") 
+                : `<li class="italic text-slate-400 list-none pl-0">Ninguno.</li>`;
+
+            absentList.innerHTML = absentStudents.length > 0 
+                ? absentStudents.map(name => `<li>${name}</li>`).join("") 
+                : `<li class="italic text-slate-400 list-none pl-0">Todos presentes.</li>`;
+        }
+
+        function updateStats() {
+            document.getElementById("stat-total-students").textContent = allStudents.length;
+            
+            const presents = sessionAttendance.filter(a => a.estado === "Presente" || a.estado === "Tardanza").length;
+            const absents = sessionAttendance.filter(a => a.estado === "Ausente").length;
+            
+            document.getElementById("stat-present-today").textContent = sessionAttendance.length ? presents : 0;
+            document.getElementById("stat-absent-today").textContent = sessionAttendance.length ? absents : 0;
+        }
+
+        // Run
+        init();
     </script>
 </body>
 </html>
