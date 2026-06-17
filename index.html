@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRECE - Codifica tu Mundo</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crece: {
+                            bordo: '#700816',
+                            rojo: '#e51d24',
+                            azulPatrio: '#363092',
+                            azulUniforme: '#1b6391',
+                            negro: '#111111',
+                            gris: '#f9f9f9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS Design System -->
+    <link rel="stylesheet" href="css/custom.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icons (for premium vector icons) -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-crece-gris font-['Inter'] text-slate-800 antialiased bg-dots min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header id="main-nav" class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-white/70 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-crece-bordo to-crece-rojo flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                    <i class="ri-code-s-slash-line text-white text-xl font-bold"></i>
+                </div>
+                <div>
+                    <span class="font-['Outfit'] font-black text-2xl tracking-tight text-crece-bordo">CRECE</span>
+                    <span class="block text-[9px] uppercase tracking-widest text-crece-azulUniforme font-bold -mt-1">Dr. J. G. R. de Francia</span>
+                </div>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="index.html" class="nav-link active text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Inicio</a>
+                <a href="institucion.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Institución</a>
+                <a href="proyecto.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Codifica tu Mundo</a>
+                <a href="proyectos-scratch.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Proyectos Scratch</a>
+                <a href="galeria.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Galería</a>
+                <a href="planificaciones.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Planificaciones</a>
+                <a href="asistencia.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Asistencia</a>
+                <a href="contacto.html" class="nav-link text-sm font-medium text-slate-600 hover:text-crece-bordo transition-colors">Contacto</a>
+            </nav>
+            
+            <!-- CTA Button -->
+            <div class="hidden lg:flex items-center gap-4">
+                <a href="proyectos-scratch.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-crece-bordo to-crece-bordo-light hover:shadow-lg transition-all duration-300 hover-glow-bordo active:scale-95">
+                    <span>Ver Proyectos</span>
+                    <i class="ri-arrow-right-line"></i>
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="lg:hidden text-slate-700 hover:text-crece-bordo p-2 rounded-lg hover:bg-slate-100 transition-colors" aria-label="Abrir Menú">
+                <i class="ri-menu-3-line text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-overlay" class="mobile-overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 lg:hidden"></div>
+
+    <!-- Mobile Menu Sidebar -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 bottom-0 w-[300px] bg-white z-50 shadow-2xl flex flex-col p-6 lg:hidden">
+        <div class="flex justify-between items-center mb-8">
+            <span class="font-['Outfit'] font-black text-xl text-crece-bordo">CRECE</span>
+            <button id="close-menu-btn" class="text-slate-500 hover:text-crece-bordo p-2 rounded-lg hover:bg-slate-100 transition-colors" aria-label="Cerrar Menú">
+                <i class="ri-close-line text-2xl"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-4 flex-grow">
+            <a href="index.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-home-line text-lg"></i> Inicio
+            </a>
+            <a href="institucion.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-building-line text-lg"></i> Institución
+            </a>
+            <a href="proyecto.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-terminal-box-line text-lg"></i> Codifica tu Mundo
+            </a>
+            <a href="proyectos-scratch.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-palette-line text-lg"></i> Proyectos Scratch
+            </a>
+            <a href="galeria.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-gallery-line text-lg"></i> Galería
+            </a>
+            <a href="planificaciones.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-draft-line text-lg"></i> Planificaciones
+            </a>
+            <a href="asistencia.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-calendar-check-line text-lg"></i> Asistencia
+            </a>
+            <a href="contacto.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-crece-bordo font-medium transition-colors">
+                <i class="ri-contacts-line text-lg"></i> Contacto
+            </a>
+        </nav>
+        <div class="pt-6 border-t border-slate-100">
+            <a href="proyectos-scratch.html" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-white bg-crece-bordo shadow-md shadow-crece-bordo/10">
+                <span>Ver Proyectos</span>
+                <i class="ri-arrow-right-line"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-24">
+        
+        <!-- Hero Section -->
+        <section class="relative bg-hero-pattern py-20 lg:py-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Text Col -->
+                <div class="lg:col-span-7 text-center lg:text-left" data-animate="fade-in-up">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-crece-bordo/10 border border-crece-bordo/20 mb-6 animate-pulse">
+                        <span class="w-2.5 h-2.5 rounded-full bg-crece-rojo"></span>
+                        <span class="text-xs font-semibold text-crece-bordo tracking-wide uppercase">3° BTI - Aprendizaje y Servicio</span>
+                    </div>
+                    <h1 class="font-['Outfit'] font-black text-4xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-none mb-6">
+                        Codifica tu Mundo
+                        <span class="block text-gradient-bordo mt-2">Construyendo el futuro bloque a bloque</span>
+                    </h1>
+                    <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+                        Una iniciativa tecnológica del <strong>Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia (CRECE)</strong>. 
+                        Estudiantes del Bachillerato Técnico en Informática (BTI) actúan como agentes de cambio, enseñando programación y pensamiento computacional mediante Scratch a niños de la educación escolar básica.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="proyecto.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white bg-crece-bordo hover:bg-crece-bordo-light shadow-xl shadow-crece-bordo/20 hover:scale-105 transition-all duration-300">
+                            <span>Explorar Proyecto</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                        <a href="proyectos-scratch.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-slate-700 bg-white border border-gray-200 hover:bg-gray-50 shadow-md shadow-gray-100 hover:scale-105 transition-all duration-300">
+                            <i class="ri-command-fill text-yellow-500"></i>
+                            <span>Catálogo de Scratch</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Visual Col -->
+                <div class="lg:col-span-5 relative" data-animate="scale-in" class="delay-200">
+                    <!-- Tech Canvas / Stock Mockup -->
+                    <div class="relative mx-auto max-w-[420px] lg:max-w-none">
+                        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-crece-azulUniforme to-crece-bordo opacity-30 blur-2xl animate-float"></div>
+                        <div class="relative bg-white/80 backdrop-blur-lg border border-white/40 p-5 rounded-2xl shadow-2xl">
+                            <!-- Code Header -->
+                            <div class="flex justify-between items-center pb-4 border-b border-slate-100 mb-4">
+                                <div class="flex gap-1.5">
+                                    <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                                    <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                                    <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                                </div>
+                                <span class="text-[10px] font-mono text-slate-400">crece_scratch_block.py</span>
+                            </div>
+                            <!-- Mock Scratch Interface Visual representation -->
+                            <div class="space-y-3 font-mono text-xs">
+                                <div class="p-3 bg-yellow-100/60 border border-yellow-200 rounded-xl text-yellow-800 flex items-center gap-2">
+                                    <i class="ri-flag-fill text-yellow-600"></i>
+                                    <span>al hacer clic en bandera verde</span>
+                                </div>
+                                <div class="pl-4 space-y-2 border-l-2 border-slate-200">
+                                    <div class="p-2.5 bg-blue-100/60 border border-blue-200 rounded-xl text-blue-800 flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i class="ri-compass-line text-blue-600"></i>
+                                            <span>ir a x: 0 y: 0</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-2.5 bg-purple-100/60 border border-purple-200 rounded-xl text-purple-800 flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i class="ri-chat-3-line text-purple-600"></i>
+                                            <span>decir "¡Hola Mundo Computacional!" por 2 seg</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-2.5 bg-orange-100/60 border border-orange-200 rounded-xl text-orange-800 flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i class="ri-repeat-line text-orange-600"></i>
+                                            <span>por siempre</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Image overlay preview -->
+                            <div class="mt-4 rounded-xl overflow-hidden shadow-inner bg-slate-900 aspect-video relative group">
+                                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Estudiante programando" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-crece-bordo/80 to-transparent flex items-end p-4">
+                                    <div class="text-white text-xs">
+                                        <span class="font-bold block">Proyecto de Aprendizaje y Servicio</span>
+                                        <span class="opacity-80">3° BTI - CRECE</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Dashboard -->
+        <section class="py-12 bg-white border-y border-slate-100 relative z-10 shadow-sm">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Stat 1 -->
+                    <div class="text-center p-4" data-animate="fade-in-up" class="delay-100">
+                        <div class="w-12 h-12 rounded-xl bg-crece-bordo/10 text-crece-bordo flex items-center justify-center mx-auto mb-3">
+                            <i class="ri-team-line text-2xl"></i>
+                        </div>
+                        <div class="font-['Outfit'] font-black text-3xl sm:text-4xl text-slate-800 stat-number" data-target="40">0+</div>
+                        <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider mt-1">Estudiantes del BTI</p>
+                    </div>
+                    <!-- Stat 2 -->
+                    <div class="text-center p-4" data-animate="fade-in-up" class="delay-200">
+                        <div class="w-12 h-12 rounded-xl bg-crece-azulUniforme/10 text-crece-azulUniforme flex items-center justify-center mx-auto mb-3">
+                            <i class="ri-user-smile-line text-2xl"></i>
+                        </div>
+                        <div class="font-['Outfit'] font-black text-3xl sm:text-4xl text-slate-800 stat-number" data-target="150">0+</div>
+                        <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider mt-1">Niños de Primaria</p>
+                    </div>
+                    <!-- Stat 3 -->
+                    <div class="text-center p-4" data-animate="fade-in-up" class="delay-300">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-600 flex items-center justify-center mx-auto mb-3">
+                            <i class="ri-gamepad-line text-2xl"></i>
+                        </div>
+                        <div class="font-['Outfit'] font-black text-3xl sm:text-4xl text-slate-800 stat-number" data-target="80">0+</div>
+                        <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider mt-1">Proyectos Scratch</p>
+                    </div>
+                    <!-- Stat 4 -->
+                    <div class="text-center p-4" data-animate="fade-in-up" class="delay-400">
+                        <div class="w-12 h-12 rounded-xl bg-green-500/10 text-green-600 flex items-center justify-center mx-auto mb-3">
+                            <i class="ri-time-line text-2xl"></i>
+                        </div>
+                        <div class="font-['Outfit'] font-black text-3xl sm:text-4xl text-slate-800 stat-number" data-target="120">0+</div>
+                        <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider mt-1">Horas de Servicio</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Objectives -->
+        <section class="py-20 lg:py-32">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Header -->
+                <div class="text-center max-w-3xl mx-auto mb-16" data-animate="fade-in-up">
+                    <span class="text-xs font-bold text-crece-azulUniforme uppercase tracking-widest block mb-2">Fundamento Principal</span>
+                    <h2 class="font-['Outfit'] font-black text-3xl sm:text-4xl text-slate-900 leading-tight">
+                        Objetivos de Aprendizaje y Servicio
+                    </h2>
+                    <div class="section-divider section-divider-center mt-4 mb-6"></div>
+                    <p class="text-slate-600 text-base">
+                        El proyecto conecta las competencias técnicas del Bachillerato en Informática con el compromiso cívico de empoderar a la comunidad mediante la educación y el desarrollo de habilidades del siglo XXI.
+                    </p>
+                </div>
+                
+                <!-- Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-2xl p-8 border border-slate-100 hover-lift hover-glow-bordo relative overflow-hidden group" data-animate="fade-in-up" class="delay-100">
+                        <div class="w-14 h-14 rounded-2xl bg-crece-bordo/10 text-crece-bordo flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110">
+                            <i class="ri-terminal-window-line text-3xl"></i>
+                        </div>
+                        <h3 class="font-['Outfit'] font-bold text-xl text-slate-900 mb-3">Fomento del Pensamiento Computacional</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Desarrollar capacidades de abstracción, lógica de programación, y descomposición de problemas en niños de 5° y 6° grado, usando Scratch como interfaz visual accesible.
+                        </p>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-2xl p-8 border border-slate-100 hover-lift hover-glow-azul relative overflow-hidden group" data-animate="fade-in-up" class="delay-200">
+                        <div class="w-14 h-14 rounded-2xl bg-crece-azulUniforme/10 text-crece-azulUniforme flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110">
+                            <i class="ri-lightbulb-line text-3xl"></i>
+                        </div>
+                        <h3 class="font-['Outfit'] font-bold text-xl text-slate-900 mb-3">Creatividad e Innovación</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Promover que los niños dejen de ser simples consumidores de contenido tecnológico y se conviertan en creadores activos mediante el diseño de juegos, cuentos y animaciones.
+                        </p>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-2xl p-8 border border-slate-100 hover-lift hover-glow-bordo relative overflow-hidden group" data-animate="fade-in-up" class="delay-300">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-600 flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110">
+                            <i class="ri-hand-heart-line text-3xl"></i>
+                        </div>
+                        <h3 class="font-['Outfit'] font-bold text-xl text-slate-900 mb-3">Compromiso y Servicio Comunitario</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Formar a los jóvenes del 3° BTI como líderes y facilitadores de tecnología en su propio colegio, fortaleciendo sus habilidades blandas, empatía y vocación de servicio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Educational Impact / Presentation -->
+        <section class="py-20 lg:py-32 bg-white relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                <!-- Col 1 -->
+                <div class="lg:col-span-6 order-2 lg:order-1" data-animate="fade-in-up">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-100">
+                        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80" alt="Clase de programación" class="w-full h-[450px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-crece-bordo/80 to-transparent flex flex-col justify-end p-8">
+                            <div class="glass p-5 rounded-xl text-white">
+                                <p class="text-sm italic mb-3">"Aprender a programar nos dio las herramientas para resolver problemas de una forma ordenada y creativa. Ver la alegría de los niños al crear su primer juego es la mejor recompensa."</p>
+                                <span class="block font-bold text-sm">Equipo 3° BTI</span>
+                                <span class="text-xs opacity-75">Tutoría Scratch CRECE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Col 2 -->
+                <div class="lg:col-span-6 order-1 lg:order-2 space-y-6" data-animate="fade-in-up" class="delay-200">
+                    <span class="text-xs font-bold text-crece-bordo uppercase tracking-widest block">Metodología y Alcance</span>
+                    <h2 class="font-['Outfit'] font-black text-3xl sm:text-4xl text-slate-900 leading-tight">
+                        Impacto del Aprendizaje Integrado
+                    </h2>
+                    <div class="section-divider mt-2 mb-6"></div>
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Durante la implementación del proyecto, se estructuraron clases guiadas semanales donde los estudiantes de primaria aprendieron conceptos fundamentales: secuencias lógicas, bucles, condicionales y variables.
+                    </p>
+                    <div class="space-y-4">
+                        <!-- Item -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="ri-checkbox-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">100% de enfoque práctico y constructivista</h4>
+                                <p class="text-xs text-slate-500">Diseñado para que cada sesión resulte en un producto tangible e interactivo de Scratch.</p>
+                            </div>
+                        </div>
+                        <!-- Item -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="ri-checkbox-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Integración de grados</h4>
+                                <p class="text-xs text-slate-500">Trabajamos estrechamente con los niños de 5° y 6° grado del CRECE de manera personalizada.</p>
+                            </div>
+                        </div>
+                        <!-- Item -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-crece-bordo/10 text-crece-bordo flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="ri-checkbox-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Evaluación basada en portafolios</h4>
+                                <p class="text-xs text-slate-500">El resultado final del proyecto incluye este repositorio institucional público de proyectos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final Banner -->
+        <section class="py-20 lg:py-32 relative bg-gradient-to-tr from-crece-bordo to-crece-bordo-dark text-white overflow-hidden">
+            <div class="absolute inset-0 bg-grid opacity-10"></div>
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10" data-animate="fade-in-up">
+                <i class="ri-sparkles-line text-yellow-400 text-4xl mb-6 inline-block animate-pulse"></i>
+                <h2 class="font-['Outfit'] font-black text-3xl sm:text-5xl text-white mb-6 tracking-tight leading-tight">
+                    ¿Listo para descubrir los proyectos interactivos?
+                </h2>
+                <p class="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
+                    Explora el repositorio digital completo con la galería de fotos, planificaciones pedagógicas de los estudiantes y el catálogo interactivo de Scratch.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="proyectos-scratch.html" class="px-8 py-4 rounded-xl text-base font-semibold text-crece-bordo bg-white hover:bg-slate-100 hover:scale-105 shadow-xl transition-all duration-300">
+                        Ver Catálogo Scratch
+                    </a>
+                    <a href="galeria.html" class="px-8 py-4 rounded-xl text-base font-semibold text-white bg-transparent border border-white/20 hover:bg-white/10 hover:scale-105 transition-all duration-300">
+                        Ver Galería Fotográfica
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-10">
+            <!-- Col 1 -->
+            <div class="md:col-span-5 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-crece-bordo flex items-center justify-center">
+                        <i class="ri-code-s-slash-line text-white font-bold"></i>
+                    </div>
+                    <span class="font-['Outfit'] font-black text-xl text-white tracking-tight">CRECE</span>
+                </div>
+                <p class="text-sm text-slate-400 max-w-sm">
+                    Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia. 
+                    Memoria digital del Proyecto de Aprendizaje y Servicio: "Codifica tu Mundo".
+                </p>
+                <div class="flex items-center gap-3">
+                    <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-crece-bordo hover:text-white transition-colors flex items-center justify-center text-slate-400" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-crece-bordo hover:text-white transition-colors flex items-center justify-center text-slate-400" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-crece-bordo hover:text-white transition-colors flex items-center justify-center text-slate-400" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+                </div>
+            </div>
+            
+            <!-- Col 2 -->
+            <div class="md:col-span-3">
+                <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Proyecto</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="proyecto.html" class="hover:text-white transition-colors">Fundamentación</a></li>
+                    <li><a href="proyecto.html#objetivos" class="hover:text-white transition-colors">Objetivos</a></li>
+                    <li><a href="proyecto.html#metodologia" class="hover:text-white transition-colors">Metodología</a></li>
+                    <li><a href="proyectos-scratch.html" class="hover:text-white transition-colors">Proyectos Scratch</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 3 -->
+            <div class="md:col-span-4">
+                <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Institución</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="institucion.html" class="hover:text-white transition-colors">Historia del CRECE</a></li>
+                    <li><a href="planificaciones.html" class="hover:text-white transition-colors">Planificaciones</a></li>
+                    <li><a href="asistencia.html" class="hover:text-white transition-colors">Registro de Asistencia</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition-colors">Contacto Oficial</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+            <p>© 2026 Centro Regional de Educación Dr. José Gaspar Rodríguez de Francia. Creado por 3° BTI.</p>
+            <div class="flex items-center gap-6">
+                <span>Codifica tu Mundo &copy; 2026</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JS file -->
+    <script src="js/main.js"></script>
+    
+    <!-- Local Page JS for anim counters -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Stats Counter Animation
+            const statNumbers = document.querySelectorAll('.stat-number');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const target = parseInt(entry.target.getAttribute('data-target'));
+                            let count = 0;
+                            const speed = target / 60; // duration ~1s at 60fps
+                            
+                            const updateCount = () => {
+                                count += speed;
+                                if (count >= target) {
+                                    entry.target.innerText = target + '+';
+                                } else {
+                                    entry.target.innerText = Math.floor(count) + '+';
+                                    requestAnimationFrame(updateCount);
+                                }
+                            };
+                            updateCount();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                statNumbers.forEach(num => observer.observe(num));
+            } else {
+                statNumbers.forEach(num => {
+                    num.innerText = num.getAttribute('data-target') + '+';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
